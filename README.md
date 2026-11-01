@@ -9,7 +9,7 @@
 - 规模：`entry/src/main/ets` 下 18 个 `.ets`、约 3565 行；单测 4 个 suite / 33 条用例
 - 依赖：运行时零三方依赖（仅测试用 `@ohos/hypium`、`@ohos/hamock`）
 
-设计文档：[开发方案与调研](docs/开发方案-鸿蒙TODO服务卡片.md) · [技术报告](docs/技术报告.md)
+设计文档：[开发方案与调研](docs/开发方案-鸿蒙TODO服务卡片.md) · [技术报告](docs/技术报告.md) · [ArkUI API 笔记](docs/API-笔记.md)
 
 ---
 
