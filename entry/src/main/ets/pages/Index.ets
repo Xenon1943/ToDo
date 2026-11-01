@@ -494,20 +494,6 @@ struct Index {
   }
 
   @Builder
-  segment(label: string, index: number) {
-    Text(label)
-      .fontSize(14)
-      .fontWeight(this.currentTab === index ? FontWeight.Medium : FontWeight.Normal)
-      .fontColor(this.currentTab === index ? $r('app.color.text_primary') : $r('app.color.text_secondary'))
-      .padding({ left: 12, right: 12, top: 6, bottom: 6 })
-      .backgroundColor(this.currentTab === index ? $r('app.color.card_bg_secondary') : Color.Transparent)
-      .borderRadius(14)
-      .onClick(() => {
-        this.switchTab(index);
-      })
-  }
-
-  @Builder
   swipeActions(task: TodoTask) {
     Row() {
       Button('我的一天')
@@ -726,8 +712,30 @@ struct Index {
 
         // 分段
         Row({ space: 8 }) {
-          this.segment('我的一天', 0)
-          this.segment('全部任务', 1)
+          // 直接写在 build 里：@Builder 按值传参不会因 currentTab 变化重绘，
+          // 会出现"两个分段同时高亮"的假象
+          Text('我的一天')
+            .fontSize(14)
+            .fontWeight(this.currentTab === 0 ? FontWeight.Medium : FontWeight.Normal)
+            .fontColor(this.currentTab === 0 ? $r('app.color.text_primary') : $r('app.color.text_secondary'))
+            .padding({ left: 14, right: 14, top: 7, bottom: 7 })
+            .backgroundColor(this.currentTab === 0 ? $r('app.color.card_bg_secondary') : Color.Transparent)
+            .borderRadius(15)
+            .animation(Motion.params(Motion.FAST))
+            .onClick(() => {
+              this.switchTab(0);
+            })
+          Text('全部任务')
+            .fontSize(14)
+            .fontWeight(this.currentTab === 1 ? FontWeight.Medium : FontWeight.Normal)
+            .fontColor(this.currentTab === 1 ? $r('app.color.text_primary') : $r('app.color.text_secondary'))
+            .padding({ left: 14, right: 14, top: 7, bottom: 7 })
+            .backgroundColor(this.currentTab === 1 ? $r('app.color.card_bg_secondary') : Color.Transparent)
+            .borderRadius(15)
+            .animation(Motion.params(Motion.FAST))
+            .onClick(() => {
+              this.switchTab(1);
+            })
         }
         .width('100%')
         .padding({ left: 16, right: 16, top: 4, bottom: 8 })
@@ -871,6 +879,16 @@ struct Index {
                 .height('100%')
                 .divider({ strokeWidth: 0.5, color: $r('app.color.divider'), startMargin: 48 })
                 .scrollBar(BarState.Off)
+                // 并行手势：只认"向右"的滑动（回到「我的一天」），
+                // 向左留给行内的 swipeAction 菜单，互不抢占
+                .parallelGesture(
+                  PanGesture({ direction: PanDirection.Horizontal, distance: 20 })
+                    .onActionEnd((event: GestureEvent) => {
+                      if (event.offsetX >= 60 && this.currentTab === 1) {
+                        this.switchTab(0);
+                      }
+                    })
+                )
                 }
                 .width('100%')
                 .layoutWeight(1)
