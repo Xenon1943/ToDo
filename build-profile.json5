@@ -1,6 +1,20 @@
 {
   "app": {
-    "signingConfigs": [],
+    "signingConfigs": [
+      {
+        "name": "default",
+        "type": "HarmonyOS",
+        "material": {
+          "certpath": "C:\\Users\\Xenon\\.ohos\\config\\default_ToDo_A006taOb6WKS-L6f-FbBi1wbyXn1zP0uT2xoRVYRK18=.cer",
+          "keyAlias": "debugKey",
+          "keyPassword": "0000001BAB6BB3137A7BB826B6B72E0D0120A3745C9DE8D867901C82428FC91A05E515D8BA72FE3D3258A7",
+          "profile": "C:\\Users\\Xenon\\.ohos\\config\\default_ToDo_A006taOb6WKS-L6f-FbBi1wbyXn1zP0uT2xoRVYRK18=.p7b",
+          "signAlg": "SHA256withECDSA",
+          "storeFile": "C:\\Users\\Xenon\\.ohos\\config\\default_ToDo_A006taOb6WKS-L6f-FbBi1wbyXn1zP0uT2xoRVYRK18=.p12",
+          "storePassword": "0000001B9203233CC0196D7EF9F28036B84358658C1B4CBC9887ED770A4B4724BFBDF333C146A676C7FF29"
+        }
+      }
+    ],
     "products": [
       {
         "name": "default",
