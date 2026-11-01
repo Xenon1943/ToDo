@@ -727,31 +727,56 @@ struct Index {
         }
 
         // 分段
-        Row({ space: 8 }) {
-          // 直接写在 build 里：@Builder 按值传参不会因 currentTab 变化重绘，
-          // 会出现"两个分段同时高亮"的假象
-          Text('我的一天')
-            .fontSize(14)
-            .fontWeight(this.currentTab === 0 ? FontWeight.Medium : FontWeight.Normal)
-            .fontColor(this.currentTab === 0 ? $r('app.color.text_primary') : $r('app.color.text_secondary'))
-            .padding({ left: 14, right: 14, top: 7, bottom: 7 })
-            .backgroundColor(this.currentTab === 0 ? $r('app.color.card_bg_secondary') : Color.Transparent)
-            .borderRadius(15)
-            .animation(Motion.params(Motion.FAST))
-            .onClick(() => {
-              this.switchTab(0);
-            })
-          Text('全部任务')
-            .fontSize(14)
-            .fontWeight(this.currentTab === 1 ? FontWeight.Medium : FontWeight.Normal)
-            .fontColor(this.currentTab === 1 ? $r('app.color.text_primary') : $r('app.color.text_secondary'))
-            .padding({ left: 14, right: 14, top: 7, bottom: 7 })
-            .backgroundColor(this.currentTab === 1 ? $r('app.color.card_bg_secondary') : Color.Transparent)
-            .borderRadius(15)
-            .animation(Motion.params(Motion.FAST))
-            .onClick(() => {
-              this.switchTab(1);
-            })
+        // 分段控件：灰轨道 + 会滑动的白色药丸。
+        // 只有一个底块在动，两个文字只换颜色，因此不会出现"两个按钮同时亮"
+        Row() {
+          Stack({ alignContent: Alignment.TopStart }) {
+            Row()
+              .width(172)
+              .height(34)
+              .borderRadius(17)
+              .backgroundColor($r('app.color.card_bg_secondary'))
+
+            Row()
+              .width(84)
+              .height(30)
+              .borderRadius(15)
+              .backgroundColor($r('app.color.card_bg'))
+              .shadow({ radius: 6, color: '#1A000000', offsetY: 1 })
+              .translate({ x: this.currentTab === 0 ? 0 : 84 })
+              .animation(Motion.params(Motion.FAST))
+              .margin({ left: 2, top: 2 })
+
+            Row() {
+              Text('我的一天')
+                .width(84)
+                .height(34)
+                .textAlign(TextAlign.Center)
+                .fontSize(14)
+                .fontWeight(this.currentTab === 0 ? FontWeight.Medium : FontWeight.Normal)
+                .fontColor(this.currentTab === 0
+                  ? $r('app.color.text_primary')
+                  : $r('app.color.text_secondary'))
+                .onClick(() => {
+                  this.switchTab(0);
+                })
+              Text('全部任务')
+                .width(84)
+                .height(34)
+                .textAlign(TextAlign.Center)
+                .fontSize(14)
+                .fontWeight(this.currentTab === 1 ? FontWeight.Medium : FontWeight.Normal)
+                .fontColor(this.currentTab === 1
+                  ? $r('app.color.text_primary')
+                  : $r('app.color.text_secondary'))
+                .onClick(() => {
+                  this.switchTab(1);
+                })
+            }
+            .margin({ left: 2 })
+          }
+          .width(172)
+          .height(34)
         }
         .width('100%')
         .padding({ left: 16, right: 16, top: 4, bottom: 8 })
