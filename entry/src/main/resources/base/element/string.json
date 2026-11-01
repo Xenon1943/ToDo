@@ -1,0 +1,36 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "TODO 主模块"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "TODO 应用"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "TODO"
+    },
+    {
+      "name": "TodoFormAbility_desc",
+      "value": "我的一天服务卡片"
+    },
+    {
+      "name": "TodoFormAbility_label",
+      "value": "我的一天"
+    },
+    {
+      "name": "widget_display_name",
+      "value": "我的一天"
+    },
+    {
+      "name": "widget_desc",
+      "value": "显示我的一天的任务，可直接勾选完成或快速新建"
+    },
+    {
+      "name": "permission_reminder_reason",
+      "value": "在任务截止当天和截止前 10 分钟提醒你"
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "color": [
+    {
+      "name": "start_window_background",
+      "value": "#FFFFFF"
+    },
+    {
+      "name": "card_bg",
+      "value": "#FFFFFF"
+    },
+    {
+      "name": "page_bg",
+      "value": "#F2F3F7"
+    },
+    {
+      "name": "card_bg_secondary",
+      "value": "#F5F6F8"
+    },
+    {
+      "name": "text_primary",
+      "value": "#182431"
+    },
+    {
+      "name": "text_secondary",
+      "value": "#8A9099"
+    },
+    {
+      "name": "accent",
+      "value": "#0A59F7"
+    },
+    {
+      "name": "danger",
+      "value": "#E84026"
+    },
+    {
+      "name": "divider",
+      "value": "#14000000"
+    }
+  ]
+}

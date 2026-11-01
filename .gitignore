@@ -1,0 +1,18 @@
+/node_modules
+/oh_modules
+/local.properties
+/.idea
+**/build
+/.hvigor
+.cxx
+/.clangd
+/.clang-format
+/.clang-tidy
+**/.test
+/.appanalyzer
+# 签名材料绝不入库
+*.p12
+*.p7b
+*.cer
+*.keystore
+*.jks
