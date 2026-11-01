@@ -52,6 +52,10 @@ struct Index {
   @State draftVersion: number = 0;
   /** 正在做分段切换：期间禁用行级过渡，只播页面级滑动 */
   @State tabSwitching: boolean = false;
+  /** 切页位移：新页先被放到 ±64vp，再滑回 0（同一时刻树上只有一页） */
+  @State tabOffset: number = 0;
+  /** 切页动画开关：置位前一帧用 0 时长，避免"跳位"也被动画化 */
+  @State tabAnimEnabled: boolean = false;
   /** 切页令牌：连续切换时以最后一次为准 */
   private tabToken: number = 0;
   /** 下拉刷新：是否在刷新中、当前下拉位移、Refresh 组件状态 */
@@ -427,19 +431,25 @@ struct Index {
     if (index === this.currentTab) {
       return;
     }
+    const dir = index > this.currentTab ? 1 : -1;
     this.tabSwitching = true;
-    this.tabToken++;
-    const token = this.tabToken;
-    this.getUIContext().animateTo(Motion.params(Motion.NORMAL), () => {
-      this.currentTab = index;
-    });
+
+    // ① 无动画地把新页放到起始偏移（此时旧页已经从树上移除，绝不会同时出现两页）
+    this.tabAnimEnabled = false;
+    this.tabOffset = dir * 64;
+    this.currentTab = index;
+
+    // ② 下一帧滑回原位
     setTimeout(() => {
-      // 连续点击时只让最后一次恢复行级过渡
-      if (token === this.tabToken) {
-        this.tabSwitching = false;
-      }
-    }, Motion.NORMAL + 60);
+      this.tabAnimEnabled = true;
+      this.tabOffset = 0;
+    }, 16);
+
+    setTimeout(() => {
+      this.tabSwitching = false;
+    }, Motion.NORMAL + 80);
   }
+
 
   /**
    * 下拉刷新：强制从磁盘重读（另一个进程可能刚改过数据），
@@ -842,7 +852,9 @@ struct Index {
             }
             .width('100%')
             .height('100%')
-            .transition(Motion.pageSlide(-1))
+            .translate({ x: this.tabOffset })
+            .opacity(this.tabOffset === 0 ? 1 : 0.7)
+            .animation(this.tabAnimEnabled ? Motion.params(Motion.NORMAL) : Motion.params(0))
           } else {
             // 「全部任务」在右边 → 进入时从右侧滑入
             Column() {
@@ -905,7 +917,9 @@ struct Index {
             }
             .width('100%')
             .height('100%')
-            .transition(Motion.pageSlide(1))
+            .translate({ x: this.tabOffset })
+            .opacity(this.tabOffset === 0 ? 1 : 0.7)
+            .animation(this.tabAnimEnabled ? Motion.params(Motion.NORMAL) : Motion.params(0))
           }
         }
         .width('100%')

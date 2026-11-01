@@ -47,16 +47,6 @@ export class Motion {
     return TransitionEffect.asymmetric(appear, disappear);
   }
 
-  /** 分段切页：dir = -1 从左侧滑入，dir = 1 从右侧滑入 */
-  static pageSlide(dir: number): TransitionEffect {
-    const appear = TransitionEffect.OPACITY
-      .combine(TransitionEffect.translate({ x: dir * 120, y: 0 }))
-      .animation(Motion.params(Motion.NORMAL));
-    // 旧页不做淡出：否则切换瞬间新旧两页同时可见，看起来像"两个 Tab 都亮着"
-    const disappear = TransitionEffect.IDENTITY;
-    return TransitionEffect.asymmetric(appear, disappear);
-  }
-
   /** 拖拽时跟随手指的预览卡片阴影 */
   static dragPreviewShadow(): ShadowOptions {
     const s: ShadowOptions = { radius: 24, color: '#33000000', offsetY: 10 };

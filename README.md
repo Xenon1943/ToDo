@@ -165,7 +165,7 @@ git update-index --skip-worktree build-profile.json5
 
    计数口径：`total` 含已完成、`items` 只放未完成（否则做完最后一个会显示 `1/0`）。
 5. **提醒预算 28 条**（上限 30）。`ReminderScheduler` 用 `reminder:<taskId>` 账本记录签名与 id，签名（kind@时间@标题）不变就不重发，避免抖动与超限；进程内加了重入闸门。
-6. **动效统一在 `common/Motion.ets`**：时长（FAST/NORMAL/REORDER）、曲线、行增删过渡（`asymmetric`：新增只淡入、删除才淡出+左移）、切页滑动、阴影。
+6. **动效统一在 `common/Motion.ets`**：时长（FAST/NORMAL/REORDER）、曲线、行增删过渡（`asymmetric`：新增只淡入、删除才淡出+左移）、阴影。切页不用 `transition`——transition 会让新旧两页同时挂在树上，改成"新页先偏移、下一帧滑回 0"的位移动画。
 7. **卡片（form 应用）里 `animateTo` / `getUIContext` / `setTimeout` 是编译期错误**。卡片只能用 `.animation()` 隐式动画，所以"勾选后淡出"是：标记 `leavingId` → 隐式动画淡出左移 → 发消息 → 新快照里没有它 → `onRawChanged` 清标记。
 8. **手势分工**：任务行**左滑**＝操作菜单（`swipeAction.end`），行**右滑**与标题/分段/空白的左右滑＝切页（页面根节点 `PanGesture`）。子组件手势优先，行上左滑不会误触发切页。
 9. **列表项排序用 `order` 字段**（不是数组位置）。老数据 `order=0` 回退按 `createdAt`；新建取 `max(order)+1000`；拖拽后对「我的一天」重编号（步长 1000），批量写入只 bump 一次版本号；排序**不改 `updatedAt`**。
