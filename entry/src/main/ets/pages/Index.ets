@@ -439,14 +439,20 @@ struct Index {
     this.tabOffset = dir * 64;
     this.currentTab = index;
 
-    // ② 下一帧滑回原位
+    // ② 下一帧滑回原位；用令牌保证连续切换时只有最后一次生效
+    const token = ++this.tabToken;
     setTimeout(() => {
+      if (token !== this.tabToken) {
+        return;
+      }
       this.tabAnimEnabled = true;
       this.tabOffset = 0;
     }, 16);
 
     setTimeout(() => {
-      this.tabSwitching = false;
+      if (token === this.tabToken) {
+        this.tabSwitching = false;
+      }
     }, Motion.NORMAL + 80);
   }
 

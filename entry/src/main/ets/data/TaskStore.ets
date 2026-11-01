@@ -215,20 +215,7 @@ export class TaskStore {
     }
   }
 
-  /** 应用被清空数据后残留的脏数据：仅用于调试入口 */
-  clearAll(): void {
-    const p = this.prefs;
-    if (p === null) {
-      return;
-    }
-    try {
-      p.clearSync();
-      this.cache.clear();
-      this.cachedVersion = this.readVersion();
-    } catch (e) {
-      Logger.error(`[Repo] clearAll failed: ${JSON.stringify(e)}`);
-    }
-  }
+
 
   // ---- 通用 KV（设置项等），与任务共用同一个 Preferences 文件 ----
 

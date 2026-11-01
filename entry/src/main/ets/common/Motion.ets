@@ -11,14 +11,8 @@ export class Motion {
   /** 常规过渡：增删行、切页 */
   static readonly NORMAL: number = 220;
 
-  /** 拖拽让路、长按浮起 */
-  static readonly SLOW: number = 300;
-
   /** 拖拽换位时其他行的让路时长（跟手优先，不能太长） */
   static readonly REORDER: number = 200;
-
-  /** 长按选中后的行透明度 */
-  static readonly PRESS_OPACITY: number = 0.88;
 
   /** 卡片上"正在离场"的行透明度（万一快照没回来，还能看见可点） */
   static readonly CARD_LEAVE_OPACITY: number = 0.15;

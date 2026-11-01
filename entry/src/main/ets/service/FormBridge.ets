@@ -79,13 +79,5 @@ export class FormBridge {
     }
   }
 
-  /** 卡片进程里：读库 → 生成快照 → 回推 */
-  static async pushCurrentToForm(formId: string): Promise<void> {
-    await FormBridge.pushToForm(formId, FormBridge.snapshotJson(
-      TaskRepository.get().listAll(), AppConfig.CARD_ITEM_LIMIT));
-  }
 
-  static formName(): string {
-    return AppConfig.FORM_NAME;
-  }
 }

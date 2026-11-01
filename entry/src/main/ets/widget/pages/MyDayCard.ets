@@ -1,6 +1,7 @@
 import { CardItem } from '../../common/Models';
 import { TimeUtil } from '../../common/TimeUtil';
 import { Motion } from '../../common/Motion';
+import { AppConfig } from '../../common/AppConfig';
 
 let storageMyDay: LocalStorage = new LocalStorage();
 
@@ -61,9 +62,9 @@ class RouterParams {
 
 class RouterAction {
   action: string = 'router';
-  bundleName: string = 'com.xenon.todo';
-  moduleName: string = 'entry';
-  abilityName: string = 'EntryAbility';
+  bundleName: string = AppConfig.BUNDLE_NAME;
+  moduleName: string = AppConfig.MODULE_NAME;
+  abilityName: string = AppConfig.MAIN_ABILITY;
   params: RouterParams;
 
   constructor(params: RouterParams) {

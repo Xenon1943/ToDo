@@ -190,10 +190,8 @@ interface CardActionJson {
 
 export class CardOp {
   static readonly TOGGLE: string = 'toggle';
-  static readonly QUICK_ADD: string = 'quickAdd';
-  static readonly UNDO: string = 'undo';
-  static readonly OPEN_APP: string = 'openApp';
 }
+
 
 /** 编辑面板的数据载体（新建与编辑共用） */
 export class TaskDraft {
