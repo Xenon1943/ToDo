@@ -760,7 +760,7 @@ struct Index {
                         }
                       })
                     }
-                    .swipeAction({ start: this.swipeActions(task) })
+                    .swipeAction({ end: this.swipeActions(task) })
                     // 拖拽/切页期间不播"删除过渡"，否则换位时整行会往左甩一下
                     .transition(this.tabSwitching || this.rowAnimSuppressed || this.dragFrom >= 0
                       ? TransitionEffect.IDENTITY
@@ -861,7 +861,7 @@ struct Index {
                         }
                       })
                     }
-                    .swipeAction({ start: this.swipeActions(task) })
+                    .swipeAction({ end: this.swipeActions(task) })
                     .transition(this.tabSwitching || this.rowAnimSuppressed
                       ? TransitionEffect.IDENTITY
                       : Motion.rowTransition())
